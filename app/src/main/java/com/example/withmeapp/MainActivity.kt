@@ -2,6 +2,7 @@ package com.example.withmeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.withmeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -10,6 +11,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        itm
+        Log.d("itm","itm")
     }
 }
