@@ -13,5 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         Log.d("itm","itm")
         Log.d("itm","good")
+        Log.d("itm","gooooooooooooood")
+
     }
 }
