@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+
+    <!--    stroke: 사각형 테두리 선의 굵기와 색
+            corners: 사각형의 각 모서리 설정, 값 높을수록 둥근 사각형
+            padding: 위젯들에서의 속성
+            solid: 사각형 내부의 색    -->
+
+
+    <stroke
+        android:width="5dp"
+        android:color="#ffffff" />
+    <corners
+        android:bottomRightRadius="40dp"
+        android:bottomLeftRadius="40dp"
+        android:topLeftRadius="40dp"
+        android:topRightRadius="40dp"/>
+    <padding
+        android:left="1dp"
+        android:top="1dp"
+        android:right="1dp"
+        android:bottom="1dp" />
+    <solid android:color="#ffffff"/>
+</shape>
