@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.example.withmeapp.databinding.ActivityLoginBinding
 import com.example.withmeapp.databinding.ActivityMainBinding
-import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
@@ -37,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginkakao.setOnClickListener{
             // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
-            LoginClient.instance.run {
+            UserApiClient.instance.run {
                 if (isKakaoTalkLoginAvailable(this@LoginActivity)) {
                     loginWithKakaoTalk(this@LoginActivity, callback = callback)
                 } else {

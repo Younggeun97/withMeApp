@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">withMeApp</string>
-    <string name="kakao_app_key">f8155b05179a3391368249285b441634</string>
+    <string name="comma">,</string>
+    <string name="start_location">start location</string>
+    <string name="running_distance">distance</string>
+    <string name="userID">userID</string>
+    <string name="away">away</string>
 </resources>
