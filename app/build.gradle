@@ -52,4 +52,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.android.support:design:'
     implementation 'androidx.recyclerview:recyclerview:1.1.0' //Local 페이지의 recyclerview
+    implementation "com.kakao.sdk:v2-user:2.0.1"
 }
