@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">withMeApp</string>
+    <string name="kakao_app_key">f8155b05179a3391368249285b441634</string>
 </resources>
