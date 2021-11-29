@@ -66,7 +66,7 @@ class LocalActivity : AppCompatActivity() {
 
         inner class ViewHolder(private val binding: LocallistViewBinding): RecyclerView.ViewHolder(binding.root) {
             fun bind(users: locallist_data) {
-//                binding.userimage =
+//                binding.userimage = users.userimage
                 binding.userid.text = users.userID
                 binding.within.text = users.within.toString()
                 binding.startLoc.text = users.start_loc
