@@ -2,7 +2,7 @@
     <string name="app_name">withMeApp</string>
     <string name="comma">,</string>
     <string name="start_location">start location</string>
-    <string name="running_distance">distance</string>
+    <string name="running_distance">dist</string>
     <string name="userID">userID</string>
     <string name="away">away</string>
     <!-- TODO: Remove or change this placeholder text -->

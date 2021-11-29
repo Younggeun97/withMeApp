@@ -2,7 +2,7 @@ package com.example.withmeapp
 
 import android.media.Image
 
-data class local_list(
+data class locallist_data(
     val image: Image,
     val userID: String,
     val away: String,
