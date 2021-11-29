@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id'kotlin-android-extensions'
 }
 
 android {
@@ -63,6 +64,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'org.jetbrains.anko:anko:0.10.7'
     //Local 페이지의 recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "com.google.android.material:material:1.4.0"}
