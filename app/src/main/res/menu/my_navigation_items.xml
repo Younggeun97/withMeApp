@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/Homeicon"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/homeicon"
-
         android:title="Home" />
     <item
-        android:id="@+id/Localicon"
+        android:id="@+id/localFragment"
         android:icon="@drawable/localicon"
-
         android:title="Local"/>
     <item
-        android:id="@+id/Joinicon"
+        android:id="@+id/joinFragment"
         android:icon="@drawable/joinicon"
-
         android:title="Join" />
     <item
-        android:id="@+id/Mypageicon"
+        android:id="@+id/mypageFragment"
         android:icon="@drawable/mypageicon"
-
         android:title="My page"
         />
 </menu>
