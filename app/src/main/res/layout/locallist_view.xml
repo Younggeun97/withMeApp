@@ -11,77 +11,96 @@
         android:layout_width="38dp"
         android:layout_height="42dp"
         android:layout_gravity="center"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="9dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/userid"
         android:layout_width="67dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
         android:layout_weight="1"
         android:gravity="start"
         android:text="userid"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="21dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userimage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/away"
-        android:layout_width="33dp"
+        android:id="@+id/within_text"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
+        android:gravity="center"
+        android:text="@string/within"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/within"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/within"
+        android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="35dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="right"
         android:text="@string/away"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/comma1"
-        app:layout_constraintStart_toEndOf="@+id/userid"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="21dp" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="28dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/running_distance"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="21dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/comma1"
-        android:layout_width="3dp"
+        android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/comma"
+        android:text="@string/commakm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/startLoc"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="21dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/startLoc"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="19dp"
         android:layout_gravity="center"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="right"
         android:text="@string/start_location"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/comma2"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="21dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/comma2"
-        android:layout_width="3dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
@@ -90,6 +109,30 @@
         app:layout_constraintEnd_toStartOf="@+id/distance"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="21dp" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="@string/running_distance"
+        app:layout_constraintEnd_toStartOf="@+id/km"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="21dp" />
+
+    <TextView
+        android:id="@+id/km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="21dp"
+        android:text="@string/km"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -113,12 +156,12 @@
             app:srcCompat="@drawable/localheart"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <EditText
+        <TextView
             android:id="@+id/heartnum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
+            android:text="num"
+            android:gravity="center"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </LinearLayout>
 
