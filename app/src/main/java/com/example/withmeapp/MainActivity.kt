@@ -1,5 +1,7 @@
 package com.example.withmeapp
 
+import android.content.ContentValues
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.withmeapp.databinding.ActivityMainBinding
+import com.google.android.gms.location.LocationServices
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
