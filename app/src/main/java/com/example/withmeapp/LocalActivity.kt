@@ -10,5 +10,6 @@ class LocalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityLocalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
     }
 }
