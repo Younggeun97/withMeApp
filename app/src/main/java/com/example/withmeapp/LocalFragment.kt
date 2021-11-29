@@ -9,13 +9,11 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.example.withmeapp.LocalActivity.LocalAdapter
 import com.example.withmeapp.databinding.FragmentLocalBinding
 import com.example.withmeapp.databinding.LocallistViewBinding
-import com.google.android.gms.fido.fido2.api.common.RequestOptions
 import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -98,9 +96,6 @@ class LocalFragment : Fragment() {
         }
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            Glide.with(holder.itemView.context).load(items[position].userimage)
-                .circleCrop()
-                .into(holder.binding.userimage)
             val userInfo = items[position]
 
             holder.bind(userInfo)
@@ -111,7 +106,6 @@ class LocalFragment : Fragment() {
 
         inner class ViewHolder(val binding: LocallistViewBinding): RecyclerView.ViewHolder(binding.root) {
             fun bind(users: locallist_data) {
-                binding.userimage = users.userimage
                 binding.userid.text = users.userID
                 binding.within.text = users.within.toString()
                 binding.startLoc.text = users.start_loc
