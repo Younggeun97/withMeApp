@@ -35,7 +35,7 @@ class LocalActivity : AppCompatActivity() {
     inner class LocalAdapter :
         RecyclerView.Adapter<LocalAdapter.ViewHolder> () {
 
-        var items : ArrayList<locallist_data> = arrayListOf()
+        var items : ArrayList<Locallist_data> = arrayListOf()
 
         init {  // items의 문서를 불러온 뒤 locallist_data으로 변환해 ArrayList에 담음
             firestore?.collection("UserList")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -43,7 +43,7 @@ class LocalActivity : AppCompatActivity() {
                 items.clear()
 
                 for (snapshot in querySnapshot!!.documents) {
-                    val item = snapshot.toObject(locallist_data::class.java)
+                    val item = snapshot.toObject(Locallist_data::class.java)
                     items.add(item!!)
                 }
                 notifyDataSetChanged()
@@ -65,7 +65,7 @@ class LocalActivity : AppCompatActivity() {
         }
 
         inner class ViewHolder(private val binding: LocallistViewBinding): RecyclerView.ViewHolder(binding.root) {
-            fun bind(users: locallist_data) {
+            fun bind(users: Locallist_data) {
 //                binding.userimage = users.userimage
                 binding.userid.text = users.userID
                 binding.within.text = users.within.toString()

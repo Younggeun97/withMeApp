@@ -18,7 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-
+import kotlinx.android.synthetic.main.locallist_view.view.*
 
 
 class LocalFragment : Fragment() {
@@ -26,7 +26,7 @@ class LocalFragment : Fragment() {
     private var _binding: FragmentLocalBinding? = null
     private val binding get() = _binding!!
     private lateinit var database: DatabaseReference
-    var items : ArrayList<locallist_data> = arrayListOf()
+    var items : ArrayList<Locallist_data> = arrayListOf()
 
     //메모리에 올라갔을 때
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +78,7 @@ class LocalFragment : Fragment() {
                     items.clear()
 
                     for(data in snapshot.children){
-                        val item = data.getValue<locallist_data>()
+                        val item = data.getValue<Locallist_data>()
                         items.add(item!!)
                     }
 
@@ -98,6 +98,11 @@ class LocalFragment : Fragment() {
 
             val userInfo = items[position]
 
+
+            holder.binding.btnHeart.setOnClickListener(){
+                binding.recyclerview.heartnum
+
+            }
             holder.bind(userInfo)
         }
         override fun getItemCount(): Int {
@@ -105,7 +110,7 @@ class LocalFragment : Fragment() {
         }
 
         inner class ViewHolder(val binding: LocallistViewBinding): RecyclerView.ViewHolder(binding.root) {
-            fun bind(users: locallist_data) {
+            fun bind(users: Locallist_data) {
                 binding.userid.text = users.userID
                 binding.within.text = users.within.toString()
                 binding.startLoc.text = users.start_loc

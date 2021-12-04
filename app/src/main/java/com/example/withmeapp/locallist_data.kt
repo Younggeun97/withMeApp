@@ -3,7 +3,7 @@ package com.example.withmeapp
 import android.media.Image
 import android.widget.ImageView
 
-data class locallist_data(
+data class Locallist_data(
     var userID: String,
     var within: Int,
     var start_loc: String,
