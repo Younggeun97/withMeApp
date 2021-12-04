@@ -100,8 +100,6 @@ class LocalFragment : Fragment() {
 
 
             holder.binding.btnHeart.setOnClickListener(){
-                binding.recyclerview.heartnum
-
             }
             holder.bind(userInfo)
         }
