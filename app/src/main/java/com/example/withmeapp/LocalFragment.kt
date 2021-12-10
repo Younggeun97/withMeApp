@@ -1,7 +1,9 @@
 package com.example.withmeapp
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,8 @@ class LocalFragment : Fragment() {
     private lateinit var database: DatabaseReference
     var items : ArrayList<Locallist_data> = arrayListOf()
 
+
+
     //메모리에 올라갔을 때
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,7 @@ class LocalFragment : Fragment() {
         val recyclerView = binding.recyclerview
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = LocalAdapter()
+
 
         return binding.root
     }
@@ -85,7 +90,23 @@ class LocalFragment : Fragment() {
                     notifyDataSetChanged()
                 }
             })
+
+//            val postListener = object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    // Get Post object and use the values to update the UI
+//                    val items = dataSnapshot.getValue<Locallist_data>()
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                    // Getting Post failed, log a message
+//                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+//                }
+//            }
+//            database.addValueEventListener(postListener)
+
         }
+
+
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

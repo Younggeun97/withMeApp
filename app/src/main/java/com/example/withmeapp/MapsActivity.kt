@@ -13,8 +13,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -26,10 +24,11 @@ import android.graphics.Color
 import android.os.SystemClock
 import android.view.WindowManager
 import android.widget.Toast
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_maps.*
 import org.jetbrains.anko.toast
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener,
+    GoogleMap.OnPolygonClickListener {
     private val polyLineOptions=PolylineOptions().width(5f).color(Color.RED) // 이동경로를 그릴 선
     private lateinit var mMap: GoogleMap // 마커, 카메라 지정을 위한 구글 맵 객체
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient // 위치 요청 메소드 담고 있는 객체
@@ -61,7 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // 현재 경도와 위도를 LatLng메소드로 설정한다.
                 val latLng=LatLng(latitude,longitude)
                 // 카메라를 이동한다.(이동할 위치,줌 수치)
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17f))
                 // 마커를 추가한다.
                 mMap.addMarker(MarkerOptions().position(latLng).title("Changed Location"))
                 // polyLine에 좌표 추가
@@ -79,13 +78,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 세로 모드로 화면 고정
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        // 위치 정보를 얻기 위한 각종 초기화
-        locationInit()
+
         // 프래그먼트 매니저로부터 SupportMapFragment프래그먼트를 얻는다. 이 프래그먼트는 지도를 준비하는 기능이 있다.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         // 지도가 준비되면 알림을 받는다. (아마, get함수에서 다른 함수를 호출해서 처리하는 듯)
         mapFragment.getMapAsync(this)
 
+
+        // 위치 정보를 얻기 위한 각종 초기화(선언한 객체들을 onCreate() 마지막에 초기화)
+        locationInit()
     }
     // 프로그램이 켜졌을 때만 위치 정보를 요청한다
     override fun onResume(){
@@ -136,6 +137,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // 10만큼 줌인 하기
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10f))
         // P.s. onMapReady가 호출된 후에 위치 수정이 가능하다!!
+
+        //다중선을 추가하여 지도에 선 그리기
+        // Add polylines to the map.
+        // Polylines are useful to show a route or some other connection between points.
+//        Polyline은 여러 선분이 연결된 형태이며, 지도에서 경로 또는 기타 위치 간 연결을 나타내는 데 유용합니다.
+//        PolylineOptions 객체를 만들고 여기에 점을 추가합니다.
+//        각 점은 위도 및 경도 값이 포함된 LatLng 객체를 사용하여 정의하는 지도상의 한 위치를 나타냅니다. 아래의 코드 샘플에서는 점 6개로 다중선을 만듭니다.
+//        GoogleMap.addPolyline()을 호출하여 지도에 다중선을 추가합니다.
+        val polyline1 = googleMap.addPolyline(PolylineOptions()
+            .clickable(true)
+            .add(
+                LatLng(-35.016, 143.321),
+                LatLng(-34.747, 145.592),
+                LatLng(-34.364, 147.891),
+                LatLng(-33.501, 150.217),
+                LatLng(-32.306, 149.248),
+                LatLng(-32.491, 147.309)))
+
+        // Store a data object with the polyline, used here to indicate an arbitrary type.
+        polyline1.tag = "a"
+
+        // Set listeners for click events.
+        googleMap.setOnPolylineClickListener(this)
+        googleMap.setOnPolygonClickListener(this)
+
+
+
     }
     /** 아래 내용은 사용자에게 권한 부여를 받고 처리하는 메소드이다. **/
     private val gps_request_code=1000 // gps에 관한 권한 요청 코드(번호)
@@ -159,7 +187,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         else
             ok()
     }
-    // 사용자가 권한 요청<허용,비허용>한 후에 이 메소드가 호출됨
+    // 사용자가 권한 요청<허용,비허용>한 후에 이 메소드가 호출됨(결과처리)
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode){
@@ -186,6 +214,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             noButton { toast("권한 거부 됨")
                 finish() }
         }.show()
+    }
+
+    override fun onPolylineClick(p0: Polyline) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPolygonClick(p0: Polygon) {
+        TODO("Not yet implemented")
     }
     /** 여기까지 권한에 대한 블럭이다. **/
 }

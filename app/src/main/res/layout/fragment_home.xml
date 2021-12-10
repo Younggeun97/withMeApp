@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+
+    <fragment
+        android:id="@+id/mapview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/abc_search_view" />
+
+
     <ImageButton
         android:id="@+id/maincompass"
         android:layout_width="wrap_content"
@@ -23,12 +32,14 @@
         app:srcCompat="@drawable/maincompass"
         app:tint="#000000" />
 
+
     <FrameLayout
         android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="200dp"
         android:background="@drawable/main_roundrectangle"
+        android:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/navigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -59,8 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="120dp"
             android:layout_marginTop="60dp"
+            android:layout_marginRight="120dp"
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/mainreset" />
 
