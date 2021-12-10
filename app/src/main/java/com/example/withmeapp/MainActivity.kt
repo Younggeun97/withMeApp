@@ -13,14 +13,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.withmeapp.databinding.ActivityMainBinding
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import android.R
-
-
+import java.nio.file.Paths.get
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    val db = FirebaseFirestore.getInstance()
+    private var firestore: FirebaseFirestore? = null
+    private var uid: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,35 +31,33 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
 
 
-
-
     }
+
     private fun initNavigation() {
-        val navController =
-        NavigationUI.setupWithNavController(binding.navigationView, findNavController(R.id.navi_host))
-        }
+        NavigationUI.setupWithNavController(
+            binding.navigationView,
+            findNavController(R.id.navi_host)
+        )
+    }
 
     private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
     }
 
-    var lastTimeBackPressed : Long = 0
+    var lastTimeBackPressed: Long = 0
     override fun onBackPressed() {
-        if(System.currentTimeMillis() - lastTimeBackPressed >= 1500){
+        if (System.currentTimeMillis() - lastTimeBackPressed >= 1500) {
             lastTimeBackPressed = System.currentTimeMillis()
-            Toast.makeText(this,"'뒤로' 버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_LONG).show() }
-        else {
+            Toast.makeText(this, "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
+        } else {
             ActivityCompat.finishAffinity(this)
             System.runFinalization()
             System.exit(0)
         }
     }
-    fun change() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.list_container, LocalFragment)
-        transaction.commit()
-    }
+
+
 
 
 }

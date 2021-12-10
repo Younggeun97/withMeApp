@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
             db.collection("UserList")
                 .add(datas)
 
-            (activity as MainActivity).change()
+
 
 
         }

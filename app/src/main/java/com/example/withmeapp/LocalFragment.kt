@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.withmeapp.databinding.FragmentLocalBinding
@@ -17,12 +18,16 @@ import com.google.firebase.database.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_local.*
 import kotlinx.android.synthetic.main.locallist_view.view.*
+import com.google.firebase.firestore.Query
 
 
 class LocalFragment : Fragment() {
-
+    private var firestore: FirebaseFirestore? = null
+    private var uid: String? = null
     private var _binding: FragmentLocalBinding? = null
     private val binding get() = _binding!!
     private lateinit var database: DatabaseReference
@@ -36,29 +41,28 @@ class LocalFragment : Fragment() {
 
     val listener = object : ChildEventListener {
 
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val locallistData = snapshot.getValue(Locallist_data::class.java)
+        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+            val locallistData = snapshot.getValue(Locallist_data::class.java)
 
-                Log.d("test", "test")
-                Log.d("test", locallistData.toString())
-                locallistData ?: return
+            Log.d("test", "test")
+            Log.d("test", locallistData.toString())
+            locallistData ?: return
 
-                items.add(locallistData) // 리스트에 새로운 항목을 더해서;
+            items.add(locallistData) // 리스트에 새로운 항목을 더해서;
 
-                LocalAdapter(items)
-            }
-
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
-            override fun onCancelled(error: DatabaseError) {}
-
+            LocalAdapter(items)
         }
 
+
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+        override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+        override fun onCancelled(error: DatabaseError) {}
+
+    }
 
 
     private val auth: FirebaseAuth by lazy {
@@ -71,22 +75,22 @@ class LocalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-
+        uid = FirebaseAuth.getInstance().currentUser?.uid
+        firestore = FirebaseFirestore.getInstance()
         database = Firebase.database.reference
         _binding = FragmentLocalBinding.inflate(inflater, container, false)
 
 //        val recyclerView = binding.recyclerview
 //        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 //        recyclerView.adapter = localAdapter
-
         items.clear() //리스트 초기화;
 
-        initDB()
+//        initDB()
 
-        initLocalRecyclerView()
+//        initLocalRecyclerView()
 
         // 데이터 가져오기;
-        initListener()
+//        initListener()
 
 
         return binding.root
@@ -105,8 +109,8 @@ class LocalFragment : Fragment() {
     }
 
     private fun initDB() {
-       myRef =  FirebaseDatabase.getInstance().getReference("UserList")
-    //database = Firebase.database.reference.child("UserList") // 디비 가져오기;
+        myRef = FirebaseDatabase.getInstance().getReference("UserList")
+        //database = Firebase.database.reference.child("UserList") // 디비 가져오기;
     }
 
     override fun onDestroy() {
@@ -128,5 +132,6 @@ class LocalFragment : Fragment() {
             return LocalFragment()
         }
     }
+
 }
 
