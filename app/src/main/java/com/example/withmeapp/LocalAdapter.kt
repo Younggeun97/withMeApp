@@ -28,7 +28,7 @@ class LocalAdapter(private val items: MutableList<Locallist_data>) :
 
 
             binding.userID.text = locallistData.userID
-            binding.within.text = locallistData.within
+            binding.within.text = locallistData.within.toString()
             binding.startLoc.text = locallistData.start_loc
             binding.distance.text = locallistData.distance.toString()
             binding.heartnum.text = locallistData.heartnum.toString()

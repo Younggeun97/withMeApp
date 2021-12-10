@@ -34,7 +34,7 @@ class LocalActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     inner class LocalAdapter :
         RecyclerView.Adapter<LocalAdapter.ViewHolder> () {
-
+//
         var items : ArrayList<Locallist_data> = arrayListOf()
 
         init {  // items의 문서를 불러온 뒤 locallist_data으로 변환해 ArrayList에 담음
