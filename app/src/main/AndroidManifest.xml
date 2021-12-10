@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
 
     <application
         android:name=".GlobalApplication"
@@ -22,7 +25,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WithMeApp"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:configChanges="orientation|screenSize">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -43,7 +47,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="f8155b05179a3391368249285b441634" />
+            android:value="f8155b05179a3391368249285b441634"/>
 
         <activity
             android:name=".GlobalApplication"

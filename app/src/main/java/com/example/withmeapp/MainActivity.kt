@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+
     }
 
     var lastTimeBackPressed: Long = 0
