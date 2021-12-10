@@ -2,21 +2,21 @@ package com.example.withmeapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.withmeapp.LocalActivity.LocalAdapter
 import com.example.withmeapp.databinding.FragmentLocalBinding
 import com.example.withmeapp.databinding.LocallistViewBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.locallist_view.view.*
 
@@ -26,33 +26,100 @@ class LocalFragment : Fragment() {
     private var _binding: FragmentLocalBinding? = null
     private val binding get() = _binding!!
     private lateinit var database: DatabaseReference
-    var items : ArrayList<Locallist_data> = arrayListOf()
+    var myRef = FirebaseDatabase.getInstance().getReference("UserList")
 
-    //메모리에 올라갔을 때
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-//        // 파이어스토어 인스턴스 초기화
-//        firestore = FirebaseFirestore.getInstance()
-//
-//        binding.recyclerview.adapter = LocalAdapter()
-//        binding.recyclerview.layoutManager = LinearLayoutManager(this)
+    //private val items = mutableListOf<Locallist_data>()
+    var items: ArrayList<Locallist_data> = arrayListOf()
 
+    private var localAdapter: LocalAdapter = LocalAdapter(items)
+
+    val listener = object : ChildEventListener {
+
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val locallistData = snapshot.getValue(Locallist_data::class.java)
+
+                Log.d("test", "test")
+                Log.d("test", locallistData.toString())
+                locallistData ?: return
+
+                items.add(locallistData) // 리스트에 새로운 항목을 더해서;
+
+                LocalAdapter(items)
+            }
+
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        }
+
+
+
+    private val auth: FirebaseAuth by lazy {
+        Firebase.auth
     }
 
     //뷰가 생성되었을 때
     //fragment와 layout을 연결
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+
 
         database = Firebase.database.reference
         _binding = FragmentLocalBinding.inflate(inflater, container, false)
 
-        val recyclerView = binding.recyclerview
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = LocalAdapter()
+//        val recyclerView = binding.recyclerview
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        recyclerView.adapter = localAdapter
+
+        items.clear() //리스트 초기화;
+
+        initDB()
+
+        initLocalRecyclerView()
+
+        // 데이터 가져오기;
+        initListener()
+
 
         return binding.root
+    }
+
+    private fun initListener() {
+        myRef.addChildEventListener(listener)
+    }
+
+    private fun initLocalRecyclerView() {
+        // activity 일 때는 그냥 this 로 넘겼지만 (그자체가 컨텍스트라서) 그러나
+        // 프레그 먼트의 경우에는 아래처럼. context
+
+        binding.recyclerview.layoutManager = LinearLayoutManager(context)
+        binding.recyclerview.adapter = localAdapter
+    }
+
+    private fun initDB() {
+       myRef =  FirebaseDatabase.getInstance().getReference("UserList")
+    //database = Firebase.database.reference.child("UserList") // 디비 가져오기;
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        myRef.removeEventListener(listener)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+
+        localAdapter.notifyDataSetChanged() // view 를 다시 그림;
     }
 
     companion object {
@@ -61,62 +128,5 @@ class LocalFragment : Fragment() {
             return LocalFragment()
         }
     }
-
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    inner class LocalAdapter :
-        RecyclerView.Adapter<LocalAdapter.ViewHolder> () {
-
-
-        init {  // items의 문서를 불러온 뒤 locallist_data으로 변환해 ArrayList에 담음
-            FirebaseDatabase.getInstance().reference.child("UserList").addValueEventListener(object: ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                }
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    // ArrayList 비워줌
-                    items.clear()
-
-                    for(data in snapshot.children){
-                        val item = data.getValue<Locallist_data>()
-                        items.add(item!!)
-                    }
-
-                    notifyDataSetChanged()
-                }
-            })
-        }
-
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-            val binding = LocallistViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return ViewHolder(binding)
-
-        }
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-            val userInfo = items[position]
-
-
-            holder.binding.btnHeart.setOnClickListener(){
-            }
-            holder.bind(userInfo)
-        }
-        override fun getItemCount(): Int {
-            return items.size
-        }
-
-        inner class ViewHolder(val binding: LocallistViewBinding): RecyclerView.ViewHolder(binding.root) {
-            fun bind(users: Locallist_data) {
-                binding.userid.text = users.userID
-                binding.within.text = users.within.toString()
-                binding.startLoc.text = users.start_loc
-                binding.distance.text = users.distance.toString()
-                binding.heartnum.text = users.heartnum.toString()
-            }
-        }
-    }
 }
-
 
