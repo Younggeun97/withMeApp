@@ -73,11 +73,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnPolyli
     // 이 메소드부터 프로그램 시작
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+
         // 화면이 꺼지지 않게 하기
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 세로 모드로 화면 고정
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        setContentView(R.layout.activity_maps)
 
         // 프래그먼트 매니저로부터 SupportMapFragment프래그먼트를 얻는다. 이 프래그먼트는 지도를 준비하는 기능이 있다.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
