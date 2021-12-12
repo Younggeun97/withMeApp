@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
             var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             // result가 성공했을 때 이 값을 firebase에 넘겨주기
             if (result!!.isSuccess) {
+
                 var account = result.signInAccount
                 // Second step
                 firebaseAuthWithGoogle(account)
@@ -83,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 로그인이 성공하면 다음 페이지로 넘어가는 함수
     fun moveMainPage(user: FirebaseUser?) {
+
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
