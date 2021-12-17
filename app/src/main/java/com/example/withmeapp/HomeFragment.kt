@@ -116,7 +116,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
     private fun addLocationListener() {
         // 위치 정보 요청
         // (정보 요청할 때 넘겨줄 데이터)에 관한 객체, 위치 갱신되면 호출되는 콜백, 특정 스레드 지정(별 일 없으니 null)
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null!!)
     }
 
     /**

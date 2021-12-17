@@ -38,17 +38,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
-
-        <activity
-            android:name=".MapsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_maps" />
-
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="f8155b05179a3391368249285b441634"/>
-
+            android:value="AIzaSyBoiCqtx2eDCtCLTbR59A6oRyhnmW9CfwM" />
         <activity
             android:name=".GlobalApplication"
             android:exported="false" />
@@ -61,27 +51,12 @@
             android:exported="true"
             android:screenOrientation="portrait">
 
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        </activity>
-        <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="oauth"
-                    android:scheme="kakaof8155b05179a3391368249285b441634" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
