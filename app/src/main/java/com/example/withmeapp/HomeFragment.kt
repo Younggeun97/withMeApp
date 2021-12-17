@@ -2,38 +2,26 @@ package com.example.withmeapp
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil.setContentView
 import com.example.withmeapp.databinding.FragmentHomeBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn.requestPermissions
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
-import java.util.*
 import com.google.android.gms.maps.GoogleMap as GoogleMap
 
 
@@ -63,14 +51,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
 
     // 위치 정보를 찾고 나서 인스턴스화되는 클래스
     inner class MyLocationCallBack : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
+        override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
             // lastLocation프로퍼티가 가리키는 객체 주소를 받는다.
             // 그 객체는 현재 경도와 위도를 프로퍼티로 갖는다.
             // 그러나 gps가 꺼져 있거나 위치를 찾을 수 없을 때는 lastLocation은 null을 가진다.
-            val location = locationResult?.lastLocation
+            val location = locationResult.lastLocation
             //  gps가 켜져 있고 위치 정보를 찾을 수 있을 때 다음 함수를 호출한다. <?. : 안전한 호출>
-            location?.run {
+            location.run {
                 // 현재 경도와 위도를 LatLng메소드로 설정한다.
                 val latLng = LatLng(latitude, longitude)
                 // 카메라를 이동한다.(이동할 위치,줌 수치)
