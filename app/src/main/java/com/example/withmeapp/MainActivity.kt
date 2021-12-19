@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
 
 
+
     }
     private fun requestRuntimePermissions() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

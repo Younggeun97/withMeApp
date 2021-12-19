@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +26,7 @@ import org.jetbrains.anko.yesButton
 import com.google.android.gms.maps.GoogleMap as GoogleMap
 
 
-class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickListener,
-    GoogleMap.OnPolygonClickListener {
+class HomeFragment : Fragment(), OnMapReadyCallback {
     private val polyLineOptions = PolylineOptions().width(5f).color(Color.RED) // 이동경로를 그릴 선
     private lateinit var mMap: GoogleMap // 마커, 카메라 지정을 위한 구글 맵 객체
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient // 위치 요청 메소드 담고 있는 객체
@@ -98,11 +98,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
     override fun onResume() {
         super.onResume()
         // 사용자에게 gps키라고 알리기
-        Toast.makeText(context, "이 앱은 GPS(위치)를 켜야 이용 가능합니다!", Toast.LENGTH_SHORT).show()
+
         // '앱이 gps사용'에 대한 권한이 있는지 체크
         // 거부됐으면 showPermissionInfoDialog(알림)메소드를 호출, 승인됐으면 addLocationListener(위치 요청)메소드를 호출
         permissionCheck(cancel = { showPermissionInfoDialog() },
             ok = { addLocationListener() })
+
+        Toast.makeText(context, "이 앱은 GPS(위치)를 켜야 이용 가능합니다!", Toast.LENGTH_SHORT).show()
     }
 
     // 프로그램이 중단되면 위치 요청을 삭제한다
@@ -116,7 +118,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
     private fun addLocationListener() {
         // 위치 정보 요청
         // (정보 요청할 때 넘겨줄 데이터)에 관한 객체, 위치 갱신되면 호출되는 콜백, 특정 스레드 지정(별 일 없으니 null)
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null!!)
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
     /**
@@ -170,9 +172,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
         // Store a data object with the polyline, used here to indicate an arbitrary type.
         polyline1.tag = "a"
 
-        // Set listeners for click events.
-        googleMap.setOnPolylineClickListener(this)
-        googleMap.setOnPolygonClickListener(this)
+//        // Set listeners for click events.
+//        googleMap.setOnPolylineClickListener(this)
+//        googleMap.setOnPolygonClickListener()
 
 
     }
@@ -246,12 +248,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnPolylineClickLi
         }.show()
     }
 
-    override fun onPolylineClick(p0: Polyline) {
-        TODO("Not yet implemented")
-    }
+//    override fun onPolylineClick(p0: Polyline) {}
+//    override fun onPolygonClick(p0: Polygon) {}
 
-    override fun onPolygonClick(p0: Polygon) {
-        TODO("Not yet implemented")
-    }
     /** 여기까지 권한에 대한 블럭이다. **/
 }

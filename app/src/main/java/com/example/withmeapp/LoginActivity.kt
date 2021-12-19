@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -40,8 +41,6 @@ class LoginActivity : AppCompatActivity() {
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        auth = FirebaseAuth.getInstance()
-
         //Google 로그인 옵션 구성. requestIdToken 및 Email 요청
         binding.logingoogle.setOnClickListener {
             //First step
@@ -52,6 +51,9 @@ class LoginActivity : AppCompatActivity() {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        auth = FirebaseAuth.getInstance()
+
     }
 
 
@@ -94,11 +96,13 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Login, 아이디와 패스워드가 맞았을 때
                     Toast.makeText(this, "success", Toast.LENGTH_LONG).show()
+                    Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
                     moveMainPage(task.result?.user)
                     Log.d("LoginActivity", "moveMainPage proceeded")
                 } else {
                     // Show the error message, 아이디와 패스워드가 틀렸을 때
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+                    Snackbar.make(logingoogle, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT).show()
                 }
             }
     }
